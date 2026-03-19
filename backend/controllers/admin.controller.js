@@ -278,15 +278,16 @@ exports.getAllFoodOrders = (req, res) => {
 
     const sql = `
         SELECT 
-            t.name AS tenant_name,
-            t.room_no,
-            f.meal_time,
-            f.veg,
-            f.non_veg,
-            f.created_at
-        FROM food f
-        JOIN tenants t ON f.tenant_id = t.tenant_id
-        ORDER BY f.created_at DESC
+    t.tenant_id,
+    t.name AS tenant_name,
+    t.room_no,
+    f.meal_time,
+    f.veg,
+    f.non_veg,
+    f.created_at
+FROM food f
+JOIN tenants t ON f.tenant_id = t.tenant_id
+ORDER BY f.created_at DESC
     `;
 
     db.query(sql, (err, results) => {
