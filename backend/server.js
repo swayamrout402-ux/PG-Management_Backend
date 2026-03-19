@@ -46,4 +46,17 @@ app.use((err, req, res, next) => {
 });
 
 // ✅ EXPORT ONLY (NO app.listen)
+// ===================== START SERVER =====================
+// Render provides a port via process.env.PORT. 
+// We default to 3000 for local development.
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server is running on port ${PORT}`);
+  console.log(`🔗 Access locally at http://localhost:${PORT}`);
+});
+
+// Optional: Keep this if you use this file in a test suite, 
+// but the app.listen above is what Render needs to stay alive.
 module.exports = app;
+
