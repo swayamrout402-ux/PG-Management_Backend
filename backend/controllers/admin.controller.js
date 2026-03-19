@@ -122,17 +122,18 @@ exports.confirmPayment = (req, res) => {
 exports.getAllComplaints = (req, res) => {
   const sql = `
     SELECT 
-      c.complaint_id, 
-      c.title, 
-      c.description, 
-      c.status, 
-      c.created_at, 
-      c.resolved_at,
-      t.name AS tenant_name, 
-      t.room_no
-    FROM complaints c
-    JOIN tenants t ON c.tenant_id = t.tenant_id
-    ORDER BY c.created_at DESC
+  c.complaint_id,
+  c.tenant_id,
+  c.title,
+  c.description,
+  c.status,
+  c.created_at,
+  c.resolved_at,
+  t.name AS tenant_name,
+  t.room_no
+FROM complaints c
+JOIN tenants t ON c.tenant_id = t.tenant_id
+ORDER BY c.created_at DESC
   `;
 
   db.query(sql, (err, results) => {
