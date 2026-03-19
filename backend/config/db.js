@@ -1,23 +1,31 @@
 const mysql = require('mysql2');
 
-// Create a connection pool
+// ========================================================
+// ⚠️ WARNING: Hardcoding passwords in your code can be 
+// a security risk if your GitHub repo is Public.
+// ========================================================
 const db = mysql.createPool({
-  host: 'localhost',
-  user: 'root',          // your MySQL username
-  password: '260906', // your MySQL password
-  database: 'pg_managementfinal',
+  host: 'mysql-pgmanagement-swayam.j.aivencloud.com',
+  user: 'avnadmin',
+  password: 'AVNS_lSBF3uMIX_VdqEj18WB',
+  database: 'defaultdb',
+  port: 27928,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  // Required for Aiven Cloud Security
+  ssl: {
+    rejectUnauthorized: false 
+  }
 });
 
-// Optional: Test connection immediately
+// Test the connection
 db.getConnection((err, connection) => {
   if (err) {
-    console.error('MySQL Connection Failed:', err);
+    console.error('❌ Cloud Connection Failed:', err.message);
   } else {
-    console.log('MySQL Connected Successfully');
-    connection.release();
+    console.log('✅ Connected to Aiven MySQL Cloud successfully!');
+    if (connection) connection.release();
   }
 });
 
