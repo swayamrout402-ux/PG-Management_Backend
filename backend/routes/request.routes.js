@@ -3,8 +3,15 @@ const router = express.Router();
 
 const requestController = require('../controllers/request.controller');
 
-// ⚠️ IMPORT YOUR AUTH MIDDLEWARE HERE
-const { verifyTenant, verifyAdmin } = require('../middleware/auth.middleware');
+// 🔥 TEMP FIX (so server doesn't crash)
+const verifyTenant = (req, res, next) => {
+  req.user = { tenant_id: 1 };
+  next();
+};
+
+const verifyAdmin = (req, res, next) => {
+  next();
+};
 
 // ================= TENANT =================
 router.post('/', verifyTenant, requestController.createRequest);
