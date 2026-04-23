@@ -1,15 +1,18 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
 
-const requestController = require("../controllers/request.controller");
+const requestController = require('../controllers/request.controller');
 
-// Tenant
-router.post("/", requestController.createRequest);
-router.get("/my", requestController.getMyRequests);
+// ⚠️ IMPORT YOUR AUTH MIDDLEWARE HERE
+const { verifyTenant, verifyAdmin } = require('../middleware/auth.middleware');
 
-// Admin
-router.get("/admin", requestController.getAllRequests);
-router.put("/admin/:id", requestController.updateRequestStatus);
-router.post("/admin/:id/assign", requestController.assignRoom);
+// ================= TENANT =================
+router.post('/', verifyTenant, requestController.createRequest);
+router.get('/my', verifyTenant, requestController.getMyRequests);
+
+// ================= ADMIN =================
+router.get('/admin', verifyAdmin, requestController.getAllRequests);
+router.put('/admin/:id', verifyAdmin, requestController.updateRequestStatus);
+router.post('/admin/:id/assign', verifyAdmin, requestController.assignRoom);
 
 module.exports = router;
