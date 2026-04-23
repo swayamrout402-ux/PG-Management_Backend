@@ -46,11 +46,20 @@ exports.getMyRequests = (req, res) => {
 // ================= ADMIN: GET ALL REQUESTS =================
 exports.getAllRequests = (req, res) => {
   const sql = `
-  SELECT r.*, t.name
+  SELECT 
+    r.id,
+    r.tenant_id,
+    t.name AS tenant_name,
+    r.room_type,
+    r.reason,
+    r.status,
+    r.admin_comment,
+    r.created_at
   FROM room_requests r
   LEFT JOIN tenants t ON r.tenant_id = t.tenant_id
   ORDER BY r.created_at DESC
 `;
+
 
 
   db.query(sql, (err, results) => {
