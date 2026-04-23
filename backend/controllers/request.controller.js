@@ -45,7 +45,7 @@ exports.getMyRequests = (req, res) => {
 
 // ================= ADMIN: GET ALL REQUESTS =================
 exports.getAllRequests = (req, res) => {
-  const sql = `
+ const sql = `
   SELECT 
     r.id,
     r.tenant_id,
@@ -59,6 +59,7 @@ exports.getAllRequests = (req, res) => {
   LEFT JOIN tenants t ON r.tenant_id = t.tenant_id
   ORDER BY r.created_at DESC
 `;
+
 
 
 
