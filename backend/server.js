@@ -33,6 +33,8 @@ app.use('/api/tenants', require('./routes/tenant.routes'));
 app.use('/api/complaints', require('./routes/complaint.routes'));
 app.use('/api/admin', require('./routes/admin.routes'));
 app.use('/api/food', require('./routes/food.routes'));
+app.use('/api/requests', require('./routes/request.routes'));
+
 
 // ✅ ROOT ROUTE (fixes "Cannot GET /")
 app.get("/", (req, res) => {
