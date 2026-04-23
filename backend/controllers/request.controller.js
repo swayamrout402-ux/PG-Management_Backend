@@ -46,11 +46,12 @@ exports.getMyRequests = (req, res) => {
 // ================= ADMIN: GET ALL REQUESTS =================
 exports.getAllRequests = (req, res) => {
   const sql = `
-    SELECT r.*, t.name
-    FROM room_requests r
-    JOIN tenants t ON r.tenant_id = t.tenant_id
-    ORDER BY r.created_at DESC
-  `;
+  SELECT r.*, t.name
+  FROM room_requests r
+  LEFT JOIN tenants t ON r.tenant_id = t.tenant_id
+  ORDER BY r.created_at DESC
+`;
+
 
   db.query(sql, (err, results) => {
     if (err) return res.status(500).json({ message: 'Database error' });
